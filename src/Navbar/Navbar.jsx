@@ -17,6 +17,9 @@ const Navbar = () => {
         <li> <NavLink to="/register" className={({ isActive, isPending }) =>
             isActive ? "active px-3 py-2 rounded-lg bg-pink-500 text-white font-bold" : isPending ? "pending" : ""}>Register</NavLink>
         </li>
+        <li> <NavLink to="/orders" className={({ isActive, isPending }) =>
+            isActive ? "active px-3 py-2 rounded-lg bg-pink-500 text-white font-bold" : isPending ? "pending" : ""}>Orders</NavLink>
+        </li>
     </>
 
     const handleLogOut = ()=>{
