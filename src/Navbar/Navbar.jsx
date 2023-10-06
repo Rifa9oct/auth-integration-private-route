@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 
 const Navbar = () => {
-    const {user,logOut} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
 
     const navLinks = <>
         <li> <NavLink to="/" className={({ isActive, isPending }) =>
@@ -20,18 +20,30 @@ const Navbar = () => {
         <li> <NavLink to="/orders" className={({ isActive, isPending }) =>
             isActive ? "active px-3 py-2 rounded-lg bg-pink-500 text-white font-bold" : isPending ? "pending" : ""}>Orders</NavLink>
         </li>
+
+        {
+            user && <>
+                <li> <NavLink to="/profile" className={({ isActive, isPending }) =>
+                    isActive ? "active px-3 py-2 rounded-lg bg-pink-500 text-white font-bold" : isPending ? "pending" : ""}>Profile</NavLink>
+                </li>
+                <li> <NavLink to="/dashboard" className={({ isActive, isPending }) =>
+                    isActive ? "active px-3 py-2 rounded-lg bg-pink-500 text-white font-bold" : isPending ? "pending" : ""}>Dasboard</NavLink>
+                </li>
+            </>
+        }
+
     </>
 
-    const handleLogOut = ()=>{
+    const handleLogOut = () => {
         logOut()
-        .then(() => {
-            Swal.fire(
-                'Thank you',
-                'Signout successfully',
-                'success'
-              )
-        })
-        .catch(error => console.error(error))
+            .then(() => {
+                Swal.fire(
+                    'Thank you',
+                    'Signout successfully',
+                    'success'
+                )
+            })
+            .catch(error => console.error(error))
     }
 
     return (
@@ -49,18 +61,18 @@ const Navbar = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="flex gap-8 font-bold">
-                   {navLinks}
+                    {navLinks}
                 </ul>
             </div>
             <div className="navbar-end">
                 {
-                    user? <>
+                    user ? <>
                         <span className="mr-4">{user.email}</span>
                         <a onClick={handleLogOut} className="btn btn-secondary font-bold">Signout</a>
-                    </>:
-                    <Link to="/login">
-                        <button className="btn btn-secondary font-bold">Login</button>
-                    </Link>
+                    </> :
+                        <Link to="/login">
+                            <button className="btn btn-secondary font-bold">Login</button>
+                        </Link>
                 }
             </div>
         </div>

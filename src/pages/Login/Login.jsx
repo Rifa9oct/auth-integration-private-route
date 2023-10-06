@@ -1,21 +1,36 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
-    const {signinUser} = useContext(AuthContext);
+    const { signinUser,signInWithGoogle } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const handleLogin = e =>{
+    const handleLogin = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password);
 
         signinUser(email, password)
-        .then(result =>{
-            console.log(result.user);
+            .then(result => {
+                console.log(result.user);
+                e.target.reset();
+                navigate("/");
+                // navigate("/orders");
+            })
+            .catch(error => console.error(error));
+    }
+
+    const handleGoogleSignIn = () =>{
+        signInWithGoogle()
+        .then(result => {
+            console.log(result.user)
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+            console.log(error)
+        })
     }
 
     return (
@@ -45,6 +60,11 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                         <p>New here? Please <Link className="text-blue-500 font-bold underline" to="/register">Register</Link></p>
+                        <div className="flex items-center border-solid border-2 border-indigo-600 p-2 rounded-lg font-semibold">
+                            <p className="text-2xl"><FcGoogle/></p>
+                            <p><button onClick={handleGoogleSignIn}>Continue with google</button></p>
+                        </div>
+
                     </form>
                 </div>
             </div>

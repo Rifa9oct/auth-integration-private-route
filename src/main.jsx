@@ -12,6 +12,7 @@ import Register from './pages/Register/Register';
 import AuthProvider from './provider/AuthProvider';
 import Order from './pages/Order/order';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
+import Profile from './pages/Profile/Profile';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/orders",
         element: <PrivateRoute><Order></Order></PrivateRoute>
+      },
+      {
+        path: "/profile",
+        element: <PrivateRoute><Profile></Profile></PrivateRoute>
       },
     ]
   },
